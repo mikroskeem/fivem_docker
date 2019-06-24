@@ -42,4 +42,4 @@ VOLUME /data
 
 # Entry point
 COPY ./entrypoint.sh /entrypoint.sh
-CMD ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
