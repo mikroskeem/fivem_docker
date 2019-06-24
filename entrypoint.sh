@@ -14,4 +14,4 @@ if [ ! -f "${CONFIG_FILE}" ]; then
     exit 1
 fi
 
-bash /home/fivem/server/run.sh +set sv_licenseKey "${FIVEM_LICENSE_KEY}" +exec "${CONFIG_FILE}"
+bash /home/fivem/server/run.sh +sv_licenseKey "${FIVEM_LICENSE_KEY}" +exec "${CONFIG_FILE}"
