@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 LABEL maintainer="Mark Vainomaa <mikroskeem@mikroskeem.eu>"
 
 # Needed environment variables
-ENV FIVEM_BUILD=1359-4ab0b0b635379b697e4501babffece0b6c6647bf
+ENV FIVEM_BUILD=2083-e706306f033fbc9adf69ceb2104412a3bcb547e1
 ENV FIVEM_LICENSE_KEY=unset
 ENV CFX_SERVER_DATA_GIT_URL=https://github.com/citizenfx/cfx-server-data.git
 
