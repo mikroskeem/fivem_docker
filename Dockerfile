@@ -36,6 +36,7 @@ RUN git clone --depth=1 "${CFX_SERVER_DATA_GIT_URL}" server-data
 
 # Workdir must be in server-data directory
 WORKDIR /home/fivem/server-data
+RUN ln -s /data/resources /home/fivem/server-data/resources/'[docker]'
 
 # Set up volumes
 VOLUME /data

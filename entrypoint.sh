@@ -14,4 +14,10 @@ if [ ! -f "${CONFIG_FILE}" ]; then
     exit 1
 fi
 
+# Check if resources directory exists
+if [ ! -d "/data/resources" ]; then
+    echo ">>> /data/resources directory does not exist"
+    exit 1
+fi
+
 bash /home/fivem/server/run.sh +sv_licenseKey "${FIVEM_LICENSE_KEY}" "${@}" +exec "${CONFIG_FILE}"
