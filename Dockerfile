@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM alpine:latest
 LABEL maintainer="Mark Vainomaa <mikroskeem@mikroskeem.eu>"
 
 # Needed environment variables
@@ -7,17 +7,11 @@ ENV FIVEM_LICENSE_KEY=unset
 ENV CFX_SERVER_DATA_GIT_URL=https://github.com/citizenfx/cfx-server-data.git
 
 # Set up base system
-RUN    env DEBIAN_FRONTEND=noninteractive apt-get -y update \
-    && env DEBIAN_FRONTEND=noninteractive apt-get -y update \
-    && env DEBIAN_FRONTEND=noninteractive apt-get -y install curl git tar tzdata locales xz-utils dumb-init \
-    && locale-gen en_US.UTF-8 \
-    && update-locale LANG=en_US.UTF-8 \
-    && ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
-    && rm -rf /var/lib/apt/lists/*
+RUN    apk --no-cache add curl git dumb-init
 
 # Set up fivem user
-RUN    groupadd -g 1000 fivem \
-    && useradd -d /home/fivem -m -u 1000 -g 1000 fivem
+RUN    addgroup -g 1000 fivem \
+    && adduser -D -h /home/fivem -u 1000 -G fivem fivem
 
 # Download and unpack FXServer (needs root privileges to unpack special device files)
 RUN    mkdir -p /home/fivem/server \
@@ -32,8 +26,6 @@ WORKDIR /home/fivem
 
 # Set up FX server data
 RUN git clone --depth=1 "${CFX_SERVER_DATA_GIT_URL}" server-data
-
-# TODO: uninstall unneeded packages after installation is done
 
 # Workdir must be in server-data directory
 WORKDIR /home/fivem/server-data

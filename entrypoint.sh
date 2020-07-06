@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/sh
+set -e
 
 CONFIG_FILE="/data/server.cfg"
 
@@ -20,4 +21,4 @@ if [ ! -d "/data/resources" ]; then
     exit 1
 fi
 
-exec /home/fivem/server/run.sh +sv_licenseKey "${FIVEM_LICENSE_KEY}" "${@}" +exec "${CONFIG_FILE}"
+exec sh /home/fivem/server/run.sh +sv_licenseKey "${FIVEM_LICENSE_KEY}" "${@}" +exec "${CONFIG_FILE}"
