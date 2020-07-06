@@ -20,4 +20,4 @@ if [ ! -d "/data/resources" ]; then
     exit 1
 fi
 
-bash /home/fivem/server/run.sh +sv_licenseKey "${FIVEM_LICENSE_KEY}" "${@}" +exec "${CONFIG_FILE}"
+exec /home/fivem/server/run.sh +sv_licenseKey "${FIVEM_LICENSE_KEY}" "${@}" +exec "${CONFIG_FILE}"
