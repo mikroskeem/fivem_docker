@@ -7,8 +7,9 @@ ENV FIVEM_LICENSE_KEY=unset
 ENV CFX_SERVER_DATA_GIT_URL=https://github.com/citizenfx/cfx-server-data.git
 
 # Set up base system
-RUN    DEBIAN_FRONTEND=noninteractive apt-get -y update \
-    && DEBIAN_FRONTEND=noninteractive apt-get -y install curl git tar tzdata locales xz-utils \
+RUN    env DEBIAN_FRONTEND=noninteractive apt-get -y update \
+    && env DEBIAN_FRONTEND=noninteractive apt-get -y update \
+    && env DEBIAN_FRONTEND=noninteractive apt-get -y install curl git tar tzdata locales xz-utils dumb-init \
     && locale-gen en_US.UTF-8 \
     && update-locale LANG=en_US.UTF-8 \
     && ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
@@ -20,7 +21,7 @@ RUN    groupadd -g 1000 fivem \
 
 # Download and unpack FXServer (needs root privileges to unpack special device files)
 RUN    mkdir -p /home/fivem/server \
-    && curl -o /fx.tar.xz "https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/${FIVEM_BUILD}/fx.tar.xz" \
+    && curl -L -o /fx.tar.xz "https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/${FIVEM_BUILD}/fx.tar.xz" \
     && tar -C /home/fivem/server -xf /fx.tar.xz \
     && rm /fx.tar.xz
 
@@ -43,4 +44,5 @@ VOLUME /data
 
 # Entry point
 COPY ./entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["/entrypoint.sh"]
